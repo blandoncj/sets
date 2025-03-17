@@ -12,33 +12,29 @@ public class Main {
   public static void showMenu() {
     Scanner sc = new Scanner(System.in);
 
-    System.out.println("Ingrese el tamaño del conjunto universal: ");
+    System.out.print("Ingrese el tamaño del conjunto universal: ");
     int universalSize = sc.nextInt();
 
     Set<Object> universalSet = new HashSet<>();
 
-    System.out.println("Ingrese los elementos del conjunto universal:");
     for (int i = 0; i < universalSize; i++) {
-      System.out.println("Ingrese el elemento " + (i + 1) + ": ");
-      Object element = sc.next();
-      universalSet.add(element);
+      System.out.print("Ingrese el elemento " + (i + 1) + ": ");
+      universalSet.add(sc.next());
     }
 
-    System.out.println("¿Cuántos subconjuntos desea ingresar?: ");
+    System.out.print("¿Cuántos subconjuntos desea ingresar?: ");
     int subsetsNumber = sc.nextInt();
 
     List<Set<Object>> subsets = new ArrayList<>();
 
     for (int i = 0; i < subsetsNumber; i++) {
-      System.out.println("¿Cuántos elementos tiene el subconjunto " + (i + 1) + "?: ");
+      System.out.print("¿Cuántos elementos tiene el subconjunto " + (i + 1) + "?: ");
       int subsetSize = sc.nextInt();
 
       Set<Object> subset = new HashSet<>();
-
       for (int j = 0; j < subsetSize; j++) {
-        System.out.println("Ingrese el elemento " + (j + 1) + " del subconjunto " + (i + 1) + ": ");
-        Object element = sc.next();
-        subset.add(element);
+        System.out.print("Ingrese el elemento " + (j + 1) + " del subconjunto " + (i + 1) + ": ");
+        subset.add(sc.next());
       }
 
       // verificar si el subconjunto pertenece o no al conjunto universal

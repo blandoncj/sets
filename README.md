@@ -6,4 +6,4 @@
 - [x] Solicitar al usuario los elementos de cada subconjunto.
 - [x] Avisar si un subconjunto pertenece o no al conjunto universal.
 - [x] Avisar si un subconjunto es subconjunto o subconjunto propio.
-- [] Realizar el conjunto potencia del conjunto universal y listar sus elementos.
+- [x] Realizar el conjunto potencia del conjunto universal y listar sus elementos.

@@ -13,18 +13,33 @@ public class Test {
     SwingUtilities.invokeLater(() -> {
       JFrame frame = new JFrame("Conjunto Universal y Subconjuntos");
       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      frame.setSize(400, 300);
+      frame.setResizable(false);
+      frame.setSize(400, 400);
 
-      JPanel panel = new JPanel();
-      panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+      JPanel panel = new JPanel(new GridBagLayout());
+      panel.setBackground(Color.DARK_GRAY);
+      panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+      GridBagConstraints gbc = new GridBagConstraints();
+      gbc.insets = new Insets(5, 5, 5, 5);
+      gbc.fill = GridBagConstraints.HORIZONTAL;
 
       JLabel universalLabel = new JLabel("Ingrese el tamaño del conjunto universal:");
-      JTextField universalSizeField = new JTextField();
-      JButton universalButton = new JButton("Crear Conjunto Universal");
+      universalLabel.setForeground(Color.LIGHT_GRAY);
+      gbc.gridx = 0;
+      gbc.gridy = 0;
+      gbc.gridwidth = 2;
+      panel.add(universalLabel, gbc);
 
-      panel.add(universalLabel);
-      panel.add(universalSizeField);
-      panel.add(universalButton);
+      JTextField universalSizeField = new JTextField(10);
+      universalSizeField.setMaximumSize(new Dimension(200, 30));
+      universalSizeField.setBackground(Color.GRAY);
+      universalSizeField.setForeground(Color.WHITE);
+      gbc.gridy = 1;
+      panel.add(universalSizeField, gbc);
+
+      JButton universalButton = createRoundedButton("Crear Conjunto Universal");
+      gbc.gridy = 2;
+      panel.add(universalButton, gbc);
 
       universalButton.addActionListener(e -> {
         int universalSize = Integer.parseInt(universalSizeField.getText());
@@ -37,12 +52,20 @@ public class Test {
       });
 
       JLabel subsetsLabel = new JLabel("¿Cuántos subconjuntos desea ingresar?");
-      JTextField subsetsField = new JTextField();
-      JButton subsetsButton = new JButton("Crear Subconjuntos");
+      subsetsLabel.setForeground(Color.LIGHT_GRAY);
+      gbc.gridy = 3;
+      panel.add(subsetsLabel, gbc);
 
-      panel.add(subsetsLabel);
-      panel.add(subsetsField);
-      panel.add(subsetsButton);
+      JTextField subsetsField = new JTextField(10);
+      subsetsField.setMaximumSize(new Dimension(200, 30));
+      subsetsField.setBackground(Color.GRAY);
+      subsetsField.setForeground(Color.WHITE);
+      gbc.gridy = 4;
+      panel.add(subsetsField, gbc);
+
+      JButton subsetsButton = createRoundedButton("Crear Subconjuntos");
+      gbc.gridy = 5;
+      panel.add(subsetsButton, gbc);
 
       subsetsButton.addActionListener(e -> {
         int subsetsNumber = Integer.parseInt(subsetsField.getText());
@@ -65,8 +88,9 @@ public class Test {
         }
       });
 
-      JButton powerSetButton = new JButton("Calcular Conjunto Potencia");
-      panel.add(powerSetButton);
+      JButton powerSetButton = createRoundedButton("Calcular Conjunto Potencia");
+      gbc.gridy = 6;
+      panel.add(powerSetButton, gbc);
 
       powerSetButton.addActionListener(e -> {
         List<Set<Object>> powerSet = generatePowerSet(universalSet);
@@ -80,6 +104,27 @@ public class Test {
       frame.add(panel);
       frame.setVisible(true);
     });
+  }
+
+  private static JButton createRoundedButton(String text) {
+    JButton button = new JButton(text) {
+      @Override
+      protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2.setColor(getBackground());
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+        g2.setColor(getForeground());
+        g2.drawRoundRect(0, 0, getWidth(), getHeight(), 15, 15);
+        super.paintComponent(g2);
+        g2.dispose();
+      }
+    };
+    button.setContentAreaFilled(false);
+    button.setOpaque(false);
+    button.setBackground(Color.GRAY);
+    button.setForeground(Color.WHITE);
+    return button;
   }
 
   public static <T> List<Set<T>> generatePowerSet(Set<T> originalSet) {
